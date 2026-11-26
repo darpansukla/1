@@ -53,9 +53,9 @@
 </head>
 <body class="text-slate-900 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-    <!-- ================= FIRST SCREEN POPUP (Tap Anywhere to Play) ================= -->
-    <div id="firstScreenPopup" onclick="startMandatoryVideo()" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-pointer">
-        <div class="bg-white rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto pointer-events-none">
+    <!-- ================= FIRST SCREEN POPUP (Welcome Briefing & Direct Action Buttons) ================= -->
+    <div id="firstScreenPopup" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
             <div class="text-center space-y-1 border-b border-slate-100 pb-3">
                 <h2 class="text-sm font-black text-slate-900 uppercase">Welcome to the Internship Portal <br/><span class="text-indigo-600">ইণ্টাৰ্নশ্বিপ প’ৰ্টেললৈ স্বাগতম।</span></h2>
                 <p class="text-[10px] text-slate-400">Your attention is important to ensure you don’t miss any key details</p>
@@ -69,6 +69,16 @@
                 <p><strong>Internship Dress Code:</strong> <span class="text-red-600 font-bold">Use Formal Dress or College Uniform which is suitable. Casual Dress not allowed.</span></p>
                 <p><strong>Attendance Requirement:</strong> <span class="text-red-600 font-bold">100% Attendance is required and daily log book signed by the Faculty</span></p>
                 <p><strong>Internship Fee:</strong> <span class="text-red-600 font-bold">₹1,180 (Rupees One Thousand One Hundred Eighty Only) Please pay via UPI app using Bank Transfer only.</span></p>
+            </div>
+
+            <!-- Two Action Buttons: Watch Tutorial Video & Fill Registration Form -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                <button type="button" onclick="startMandatoryVideo()" class="w-full bg-slate-900 hover:bg-black text-white font-black py-3 px-4 rounded-xl text-[10px] uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all">
+                    <i class="fa-solid fa-play text-xs text-indigo-400"></i> Watch Tutorial Video
+                </button>
+                <button type="button" onclick="closeFirstPopupAndStart()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3 px-4 rounded-xl text-[10px] uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all">
+                    <i class="fa-solid fa-arrow-right text-xs"></i> Fill Registration Form
+                </button>
             </div>
 
             <div class="text-center text-[10px] font-bold text-slate-500 pt-1">
@@ -576,7 +586,6 @@
 
                             <!-- Human Face & Shoulders Outline Overlay on Screen -->
                             <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 200 200" fill="none">
-                                <!-- Subtle dark vignette outside face zone -->
                                 <defs>
                                     <mask id="faceGuideMask">
                                         <rect width="200" height="200" fill="white" />
@@ -588,13 +597,10 @@
 
                                 <!-- Bright Dashed Human Head + Shoulders Outline -->
                                 <ellipse cx="100" cy="86" rx="46" ry="58" stroke="#b7e477" stroke-width="2.5" stroke-dasharray="6 4" />
-                                <!-- Left & Right Ear Guides -->
                                 <path d="M54 78 C47 78, 47 96, 54 96" stroke="#b7e477" stroke-width="2" stroke-linecap="round" />
                                 <path d="M146 78 C153 78, 153 96, 146 96" stroke="#b7e477" stroke-width="2" stroke-linecap="round" />
-                                <!-- Eye-Level Alignment Line -->
                                 <line x1="68" y1="80" x2="86" y2="80" stroke="#b7e477" stroke-width="1.5" stroke-opacity="0.7" stroke-linecap="round" />
                                 <line x1="114" y1="80" x2="132" y2="80" stroke="#b7e477" stroke-width="1.5" stroke-opacity="0.7" stroke-linecap="round" />
-                                <!-- Shoulders Outline -->
                                 <path d="M32 195 C38 156, 162 156, 168 195" stroke="#b7e477" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round" />
                             </svg>
 
@@ -809,7 +815,7 @@
 
                 <div class="p-3 bg-amber-50/60 border border-amber-200 rounded-xl space-y-1.5">
                     <label class="block font-bold text-slate-700 uppercase text-[9px]">Edit Father's Name *</label>
-                    <input type="text" id="modalEditFathersName" placeholder="ENTER FATHER'S NAME" oninput="convertToUpperCase(this)" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg font-bold uppercase-input text-slate-800">
+                    <input type="text" id="modalEditFathersName" placeholder="ENTER FATHER'S NAME" oninput="convertToUpperCase(this)" class="w-full px-2 py-2 bg-white border border-slate-300 rounded-lg font-bold uppercase-input text-slate-800">
                 </div>
 
                 <div class="flex gap-2 pt-1">
@@ -889,6 +895,10 @@
             if (typeof YT !== 'undefined' && YT.Player) {
                 initYouTubePlayer();
             }
+        }
+
+        function closeFirstPopupAndStart() {
+            document.getElementById('firstScreenPopup').classList.add('hidden');
         }
 
         function onYouTubeIframeAPIReady() {
